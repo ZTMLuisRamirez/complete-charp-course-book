@@ -13,3 +13,6 @@ For this reason, the book was created to act as a supplementary resource. You ca
 ## Course Sections
 
 Here's an overview of each section.
+
+### Section 1: Getting Started
+
