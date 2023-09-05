@@ -1,5 +1,5 @@
 ---
-description: Welcome to the official book for the Complete C# Developer Course on Udemy.
+description: Welcome to the official book for the Complete Rust Developer Course on Udemy.
 ---
 
 # Introduction
