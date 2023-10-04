@@ -10,6 +10,10 @@ description: >-
 
 This lecture does not contain lecture notes.
 
+### Resources
+
+* Replit - [https://replit.com/](https://replit.com/)
+
 ## The Command Line
 
 In this lecture, we explored the command line. Before interfaces existed, everything we wanted to do was done through the command line, such as sending emails, downloading files, or playing audio. Developers prefer the command line since a user interface can bog down the performance. Most tools are only executable through the command line.
