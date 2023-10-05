@@ -193,11 +193,31 @@ $myAccount->deposit(50)->deposit(30);
 
 In this lecture, we talked about how to tackle exercises on Udemy. There are no notes for this lecture.&#x20;
 
-### Understanding Namespaces
+## Exercise: Instantiating Classes
+
+Here's the solution to this exercise:
+
+```php
+<?php
+
+class Student {
+    public $name;
+    
+    public function __construct($newName) {
+        $this->name = $newName;
+    }
+    
+    public function getNameInUppercase() {
+        return strtoupper($this->name);
+    }
+}
+```
+
+## Understanding Namespaces
 
 In this lecture, we talked about namespaces. There are no notes for this lecture.
 
-### Creating a Namespace
+## Creating a Namespace
 
 In this lecture, we created a namespace by using the `namespace` keyword. Following this keyword, we must provide a name. Namespaces follow the same naming rules for classes or functions. Generally, most developers use pascalcasing for namespaces.
 
@@ -223,7 +243,7 @@ use App\Account;
 $myAccount = new Account();
 ```
 
-### Working with Namespaces
+## Working with Namespaces
 
 In this lecture, we went over various things to be aware of when using namespaces. Firstly, it's common practice for the namespace to mimick a project's directory. For example, if a class exists in a folder called `App`. The namespace should be called `App`. Not required but recommended to make it easier to find classes.
 
@@ -259,12 +279,12 @@ use DateTime as DT;
 new DT();
 ```
 
-#### Resources
+### Resources
 
 * [Name Resolution Rules](https://www.php.net/manual/en/language.namespaces.rules.php)
 * [Namespace FAQ](https://www.php.net/manual/en/language.namespaces.faq.php)
 
-### Autoloading Classes
+## Autoloading Classes
 
 In this lecture, we learned how to automate the process of loading PHP files with classes. There's a function called `spl_autoload_register()` that we can call for intercepting classes that are used in a program, but haven't been defined.
 
@@ -284,7 +304,7 @@ In the first argument, we're escaping the `\` character by using `\\` since the 
 
 Next, we created a variable called `$path`, which contains the path to the file that contains the class. Lastly, we use the `require` keyword to load the file.
 
-### Using Constants in Classes
+## Using Constants in Classes
 
 In this lecture, we used a constant in a class. Classes do not support the `define()` function for constants. We must use the `const` keyword like so.
 
@@ -307,7 +327,7 @@ $myAccount = new Account();
 $myAccount::INTEREST_RATE;
 ```
 
-### Static Properties and Methods
+## Static Properties and Methods
 
 In this lecture, we learned how to use static properties and methods. Static properties are similar to constants, except they can have their values modified. We can define a static property with the `static` keyword. This keyword can be positioned before or after an access modifier.
 
@@ -348,7 +368,25 @@ Since the method is static, we can invoke the method without requiring an instan
 Utility::printArray([1, 2, 3]);
 ```
 
-### OOP Principle: Encapsulation
+## Exercise: Static Classes
+
+Here's the solution to this exercise:
+
+```php
+<?php
+
+namespace App;
+
+class Allergies {
+    public static $items = [];
+    
+    public static function getItems() {
+        return implode(",", self::$items);
+    }
+}
+```
+
+## Encapsulation
 
 In this lecture, we learned about an object-oriented programming principle called encapsulation. Encapsulation is the idea of restricting data and methods to a single class.
 
@@ -400,13 +438,13 @@ private function sendEmail() {}
 
 In the following example, the `sendEmail()` method is private, which will be responsible for sending an email to the user if the balance is successfully updated.
 
-### OOP Principle: Abstraction
+## Abstraction
 
 In this lecture, we talked about the idea of abstraction. Abstraction is the idea of hiding complexities away into a method so that outside sources don't have to worry about them. Most people know how to use coffee machines or cars, but they don't know the inner mechanisms of these machines. Regardless, they're still able to use them.
 
 This idea can be applied to programming. We can define classes to perform complex actions and then use them elsewhere without having to understand the complete implementation details of a class's methods.
 
-### OOP Principle: Inheritance
+## Inheritance
 
 In this lecture, we learned about inheritance. The idea of inheritance is that a class can be derived from another class. Properties and methods from the parent class will be available in the child class as its own properties and methods.
 
@@ -452,7 +490,7 @@ In addition, if we want to override properties or methods from the parent class,
 
 One thing to keep in mind is that the `$this` keyword points to the current instance, even if it's being used in the parent class.
 
-### Protected Modifier
+## Protected Modifier
 
 In this lecture, we learned about the protected modifier. PHP allows you to override properties, but if a property is `private`, child classes won't be able to change the value of a parent class. You can get the best of public and private properties by using the `protected` modifier.
 
@@ -462,81 +500,7 @@ The `protected` modifier allows child classes to modify parent properties but pr
 protected int $balance = 5;
 ```
 
-### Overriding Methods
-
-In this lecture, we learned about overriding methods. We're allowed to override methods from parent classes. The overriding method must have the same method signature, which shares the name and parameter list.
-
-It's completely possible to invoke a parent's method after overriding it by using the `parent` keyword. For example, let's say a parent class had a method called `foo()`. We can call it like so.
-
-```php
-parent::foo();
-```
-
-If you ever call the original method, you should always call it first. Otherwise, you may get unexpected behavior in your classes.
-
-Lastly, you can use the `final` keyword to prevent a class from being inherited.
-
-```php
-final class SomeClass {
-
-}
-```
-
-Or, you can apply it to a method to prevent the method from being overridden.
-
-```php
-class SomeClass {
-  final public function someMethod() {
-
-  }
-}
-```
-
-### Abstract Classes and Methods
-
-In this lecture, we learn how to create abstract methods and classes. There's some terminology to be aware of when using abstract classes that you'll come across in documentation or tutorials.
-
-* **Implementation** - Refers to a function or method written based on an idea.
-* **Concrete Class** - A class that fully implements its methods.
-* **Abstract Class** - A class that does not or partially implements its methods.
-
-Abstract classes can be created by using the `abstract` keyword.
-
-```php
-abstract class Product {
-
-}
-```
-
-By defining an abstract class, it cannot be instantiated. So, doing the following produces an error.
-
-```php
-new Product();
-```
-
-Our abstract classes can have implemented methods and unimplemented methods like so.
-
-```php
-abstract class Product {
-  public function turnOn() {
-    echo "Turning on product";
-  }
-
-  abstract public function setup();
-}
-```
-
-For unimplemented methods, you can use specify them with the `abstract` keyword. If we extend an abstract class, the abstract method must be implemented from the child class.
-
-```php
-class SomeProduct extends Product {
-  public function setup() {
-    echo "setting up product";
-  }
-}
-```
-
-### Interfaces
+## Interfaces
 
 In this lecture, we learned how to use interfaces, which are a feature in PHP for defining how a class should be implemented. Interfaces can contain method definitions that should be implemented by a class. We can create an interface with the `interface` keyword.
 
@@ -552,7 +516,7 @@ A few things to know about interfaces.
 
 1. Properties are not allowed
 2. Methods must be public
-3. Methods are automatically abstract. You do not need to add the `abstract` keyword
+3. Methods are automatically abstract.
 4. Constants are supported
 
 We can apply an interface to a class by adding the `implements` keyword to the class. Multiple interfaces can be added to a class by separating them with a comma.
@@ -565,46 +529,7 @@ class RestaurantOne implements RestaurantInterface {
 }
 ```
 
-### OOP Principle: Polymorphism
-
-In this lecture, we learned about the final OOP principle, polymorphism. Polymorphism is a principle that states that a variable can have various types. For example, let's say that we applied the `RestaurantInterface` data type to a parameter in a method like so.
-
-```php
-class FoodApp {
-  public function __construct(RestaurantInterface $restaurant) {
-    $restaurant->prepareFood();
-  }
-}
-```
-
-By doing so, any class that implements the `RestaurantInterface` interface can be passed into the `__construct()` method of the `FoodApp` class.
-
-Let's assume we had two classes called `RestaurantOne` and `RestaurantTwo` that implement the `RestaurantInterface` interface. As a result, you can pass in instances of these classes to the `FoodApp` class like so.
-
-```php
-new FoodApp(new RestaurantOne);
-new FoodApp(new RestaurantTwo);
-```
-
-Both examples are valid.
-
-Polymorphism can also be used with abstract classes. Here are the differences between abstract classes and interfaces.
-
-**Abstract Classes**
-
-* Methods may have implementations
-* Properties allowed
-* Public, private, protected methods allowed
-* Only one class can be extended
-
-**Interfaces**
-
-* Methods may not have implementations.
-* Properties not allowed. Constants are allowed
-* Only public methods are allowed
-* Multiple interfaces can be implemented
-
-### Anonymous Classes
+## Anonymous Classes
 
 In this lecture, we learned about anonymous classes, which are just classes that don't have a name. For example, let's say we wanted to pass an anonymous class to the `FoodApp` class. We can do so with the following code:
 
@@ -630,42 +555,7 @@ $restaurant = new FoodApp(new class("popup restaurant") implements RestaurantInt
 });
 ```
 
-### Docblocks
-
-In this lecture, we learned about docblocks, which is a format for documenting your functions and classes. They're written as a multiline comment like so.
-
-```php
-/**
- * Neatly prints an array
- *
- * Outputs an array surrounded with <pre> tags for formatting.
- *
- * @param array $array The array to output
- */
-public static function printArray(array $array) {
-  echo '<pre>';
-  print_r($array);
-  echo '</pre>';
-}
-```
-
-In this example, we're documenting a method called `printArray()`. Docblocks have a few sections. Firstly, you can provide a summary, which should be a sentence long.
-
-If you need to add more information, you can add a description. The summary and description should be separated by a new line. Descriptions don't have limits as to how long they can be.
-
-Afterward, you can start adding tags, which allow you to describe specific parts of your method. For example, you can use the `@param` tag to describe your parameters. The have the following format.
-
-```sh
-@param [<Type>] [name] [<description>]
-```
-
-Docblock is slowly losing popularity. However, it can be beneficial to know since it's prevalent in projects that use older versions of PHP. In addition, they can be helpful for providing human-readable descriptions of your function's behavior, parameters, and return values.
-
-#### Resources
-
-* [Docblock](https://docs.phpdoc.org/guide/guides/docblocks.html)
-
-### Throwing Exceptions
+## Throwing Exceptions
 
 In this lecture, we learned how to throw an exception from PHP. We can use the `throw` keyword followed by a new instance of the `Exception` class.
 
@@ -687,7 +577,7 @@ Why do we say throw an exception? Because it implies that an exception can be ca
 
 * [List of Exception Classes](https://www.php.net/manual/en/spl.exceptions.php)
 
-### Custom Exceptions
+## Custom Exceptions
 
 In this lecture, we learned how to create a custom exception class instead of using PHP's exception classes. Custom exceptions can be created to customize the errors thrown by our script. All exceptions derive from the `Exception` class. So, all you have to do is create a class that extends the `Exception` class.
 
@@ -709,7 +599,7 @@ throw new EmptyArrayException();
 
 * [Exception Class](https://www.php.net/manual/en/class.exception.php)
 
-### Catching Exceptions
+## Catching Exceptions
 
 In this lecture, we learned how to catch an exception by using the `try catch` statement. If we want to catch errors, we must surround the code with the `try` block.
 
@@ -749,154 +639,19 @@ try {
 }
 ```
 
-### The DateTime Class
+## Exercise: Inheritance
 
-In this lecture, we looked at how to work with dates by using the `DateTime` class. If we create a new instance of this class, the current date and time are returned encased in an object.
-
-```php
-$date = new DateTime();
-
-var_dump($date);
-```
-
-We can pass in a specific date as a string to the method like so.
+Here's the solution to this exercise:
 
 ```php
-$date = new DateTime("04/10/2022");
-```
+<?php
 
-By default, dates are interpreted in American format. If we want a date to be interpreted in European format, we must replace the `/` characters with either `.` or `-` like so.
+require_once "Vehicle.php";
+require_once "DriveInterface.php";
 
-```php
-$date = new DateTime("04.10.2022");
-```
-
-It's possible to alter the timezone by passing in an instance of the `DateTimeZone` class as the second argument to the `DateTime` class. The `DateTimeZone` class accepts a valid timezone, refer to the links in the resource section for a complete list of supported timezones.
-
-```php
-$timezone = new DateTimeZone("America/Chicago");
-$date = new DateTime("04/10/2022", $timezone);
-```
-
-The `DateTime` class offers various methods for manipulating the date.
-
-```php
-$date = new DateTime("04/10/2022", $timezone);
-$date->setTimezone(new DateTimeZone("Europe/Paris"))
-  ->setDate(2023, 6, 15)
-  ->setTime(9, 30);
-```
-
-* `setTimezone()` - Change the timezone. Accepts a new instance of the `DateTimeZone` class.
-* `setDate()` - Changes the date. Accepts the year, month, and day.
-* `setTime()` - Changes the time. Accepts the hour and minutes.
-
-You can output the date alone by using the `format()` method, which accepts a series of placeholders.
-
-```php
-$date->format("F j Y")
-```
-
-#### Resources
-
-* [DateTime Class](https://www.php.net/manual/en/class.datetime.php)
-* [Date Function](https://www.php.net/manual/en/function.date)
-* [Time Function](https://www.php.net/manual/en/function.time)
-* [Timezones](https://www.php.net/manual/en/timezones.php)
-* [Carbon](https://carbon.nesbot.com/docs/)
-
-### Iterator and Iterable Type
-
-In this lecture, we learned how to loop through an object using PHP. Here's some terminology that we use in the lecture:
-
-* **Iterate** – The action of repeating something (aka looping)
-* **Iterable** – An object that can be iterated. Arrays are also iterable.
-
-Let's assume we had the following class:
-
-```php
-class CurrentWeek {
-  public \DateTime $date;
-  public int $daysFrom = 0;
-
-  public function __construct() {
-    $this->date = new \DateTime();
-  }
+class Car extends Vehicle implements DriveInterface {
+    public function drive() {
+        $this->speed = 40;
+    }
 }
 ```
-
-By default, if we pass in an object to the `foreach` loop, PHP will loop through the properties. If the properties are public, they'll be retrieved. Protected or private properties cannot be looped through.
-
-```php
-$currentWeek = new CurrentWeek();
-
-foreach ($currentWeek as $key => $value) {
-  var_dump($key, $value);
-  echo "<br>";
-}
-```
-
-We can customize how an object is iterated by implementing the `Iterator` interface in our class.
-
-```php
-class CurrentWeek implements \Iterator {}
-```
-
-Inside our class, we must define five methods.
-
-```php
-class CurrentWeek implements \Iterator {
-  private \DateTime $date;
-  private int $daysFrom = 0;
-
-  public function __construct() {
-    $this->date = new \DateTime();
-  }
-
-  public function current() : mixed {
-    return $this->date->format("F j Y");
-  }
-
-  public function key() : mixed {
-    return $this->daysFrom;
-  }
-
-  public function next() : void {
-    $this->date->modify("tomorrow");
-    $this->daysFrom++;
-  }
-
-  public function rewind() : void {
-    $this->date->modify("today");
-    $this->daysFrom = 0;
-  }
-
-  public function valid() : bool {
-    return $this->daysFrom < 7;
-  }
-}
-```
-
-* `current()` - This function must return a value that will be used in the current iteration of the loop.
-* `key()` - This function must return a key that will be associated with the current value.
-* `next()` - This function runs after the current iteration is finished running. We can use this opportunity to move on to the next value.
-* `rewind()` - This function is called when a new loop is started. Mainly used for resetting the values.
-* `valid()` - This function is called after the `rewind()` and `next()` functions to check if the current value is valid.
-
-In our example, we're using the `modify()` method from the `DateTime` class. This method can be used to modify the date using a string format. It's the same type of value you can pass into a new instance of the `DateTime` class.
-
-In some cases, you may want to accept an object that can be looped through. PHP has a data type called `iterable` that can be used like so.
-
-```php
-function foo (iterable $iterable) {
-  foreach ($iterable as $key => $value) {
-    var_dump($key, $value);
-    echo "<br>";
-  }
-}
-```
-
-#### Resources
-
-* [Iterator Interface](https://www.php.net/manual/en/class.iterator.php)
-* [Supported Date and Time Forma](https://www.php.net/manual/en/datetime.formats.php)
